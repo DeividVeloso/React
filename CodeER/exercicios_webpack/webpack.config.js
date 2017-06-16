@@ -7,7 +7,7 @@ module.exports = {
     entry: './ex/index.js',
     //Arquivo de saida onde vai estar meu .JS que vai para produção.
     output: {
-        path: _dirname + '/public',
+        path: __dirname + '/public',
         filename: './bundle.js'
     },
     //Configurando o Servidor Web para rodar a aplicação
