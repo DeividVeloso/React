@@ -1,1 +1,1 @@
-console.log('webpack teste subiu')
+require('./duvidaCruel');
