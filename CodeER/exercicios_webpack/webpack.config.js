@@ -15,6 +15,17 @@ module.exports = {
         port:8080,
         //Indica onde estão os arquivos que quero rodar no browser
         contentBase: './public'
+    },
+    module:{
+        loaders:[{
+            test: /.js?$/, //Expressão regular que diz para ler todos os meus arquivos javascript
+            loader: 'babel-loader', //Biblioteca que vai ler os .Js
+            exclude: '/node_modules/', //Não é para ler meus arquivos do node_modules
+            query: { //Que tipo de dados eu quero traduzir?
+                presets: ['es2015'],  //R: nesse caso sintaxe do es2015 para VanilaJS
+                plugins: ['transform-object-rest-spread']
+            }
+        }]
     }
 }
 
