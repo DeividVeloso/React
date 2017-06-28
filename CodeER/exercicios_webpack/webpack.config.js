@@ -1,5 +1,7 @@
 //Importando modulo do webpack
 const webpack = require('webpack')
+//Usado para extrair texto e ler os arquivos .CSS
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 //Aqui dentro colocamos nossas configurações
 module.exports = {
@@ -16,15 +18,21 @@ module.exports = {
         //Indica onde estão os arquivos que quero rodar no browser
         contentBase: './public'
     },
+    plugins:[
+        new ExtractTextPlugin('app.css')
+    ],
     module:{
         loaders:[{
             test: /.js?$/, //Expressão regular que diz para ler todos os meus arquivos javascript
             loader: 'babel-loader', //Biblioteca que vai ler os .Js
             exclude: '/node_modules/', //Não é para ler meus arquivos do node_modules
             query: { //Que tipo de dados eu quero traduzir?
-                presets: ['es2015'],  //R: nesse caso sintaxe do es2015 para VanilaJS
+                presets: ['es2015', 'react'],  //R: nesse caso sintaxe do es2015 para VanilaJS
                 plugins: ['transform-object-rest-spread']
             }
+        }, { //Loader para ler arquivo .css
+            test: /.css?$/,
+            loader: ExtractTextPlugin.extract("style-loader","css-loader")
         }]
     }
 }
