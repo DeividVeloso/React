@@ -1,1 +1,0 @@
-console.log('Teste Config WebPack para o React')
