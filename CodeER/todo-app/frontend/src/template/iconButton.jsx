@@ -5,7 +5,7 @@ export default props => {
     return null;
   } else {
     return (
-      <button className={"btn btn-" + props.style} onClick={props.Click}>
+      <button className={"btn btn-" + props.style} onClick={props.onClick}>
         <i className={"fa fa-" + props.icon} />
       </button>
     );
