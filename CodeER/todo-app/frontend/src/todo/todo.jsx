@@ -1,7 +1,11 @@
 import React, { Component } from "react";
+import axios from "axios";
+
 import PageHeader from "../template/pageHeader";
 import TodoForm from "../todo/todoForm";
 import TodoList from "../todo/todoList";
+
+const URL = "http://localhost:3003/api/todos";
 
 class Todo extends Component {
   constructor(props) {
@@ -11,16 +15,20 @@ class Todo extends Component {
 
     this.handleAdd = this.handleAdd.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    
+    this.refresh();
   }
 
-  handleChange(e){
-    this.setState({description: e.target.value})
+  refresh() {
+    axios.get(`${URL}?sort=-createdAt`).then(resp => this.setState({description: '', list: resp.data}));
+  }
+
+  handleChange(e) {
+    this.setState({ description: e.target.value });
   }
 
   handleAdd() {
-    console.log("this da classe", this);
-    console.log("add uma tarefa");
+    const description = this.state.description;
+    axios.post(URL, { description }).then(msg => this.refresh());
   }
 
   render() {
@@ -32,7 +40,7 @@ class Todo extends Component {
           handleAdd={this.handleAdd}
           handleChange={this.handleChange}
         />
-        <TodoList />
+        <TodoList list={this.state.list}/>
       </div>
     );
   }

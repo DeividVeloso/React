@@ -7,7 +7,9 @@ const express = require('express');
 //Startando o servidor
 const server = express();
 //Habilitando o cors
-const allowCors = require('./cors');
+// const allowCors = require('./cors');
+
+const cors = require('cors')
 
 //Adicionando middleware para o servidor
 //Ele desserializa e transforma em object Javascript
@@ -15,7 +17,7 @@ const allowCors = require('./cors');
 server.use(bodyParser.urlencoded({ extends: true}));
 //Esse serve para desserializar JSON para  object Javascript
 server.use(bodyParser.json());
-server.use(allowCors);
+server.use(cors({origin: '*'}));
 
 
 server.listen(port, function(){
@@ -23,3 +25,4 @@ server.listen(port, function(){
 })
 
 module.exports = server;
+
