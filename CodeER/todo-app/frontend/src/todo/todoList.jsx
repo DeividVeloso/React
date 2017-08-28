@@ -1,4 +1,5 @@
 import React from "react";
+import IconButton from '../template/iconButton';
 
 export default props => {
   const renderBody = () => {
@@ -6,7 +7,13 @@ export default props => {
     return list.map(item => {
       return (
         <tr key={item._id}>
-          <td>{item.description}</td>
+          <td className={item.done ? 'markedAsDone' : ''}>{item.description}</td>
+          <td>
+            <IconButton style='success' icon='check' onClick={() => props.handleMarkAsDone(item)}/>
+            <IconButton style='warning' icon='undo' onClick={() => props.handleMarkAsPending(item)}/>
+            <IconButton style='danger' icon='trash-o' onClick={() => props.handleRemove(item._id)}/>
+            </td>
+          
         </tr>
       );
     });
