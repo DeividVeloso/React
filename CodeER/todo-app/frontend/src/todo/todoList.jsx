@@ -9,9 +9,9 @@ export default props => {
         <tr key={item._id}>
           <td className={item.done ? 'markedAsDone' : ''}>{item.description}</td>
           <td>
-            <IconButton style='success' icon='check' onClick={() => props.handleMarkAsDone(item)}/>
-            <IconButton style='warning' icon='undo' onClick={() => props.handleMarkAsPending(item)}/>
-            <IconButton style='danger' icon='trash-o' onClick={() => props.handleRemove(item._id)}/>
+            <IconButton style='success' icon='check' hide={item.done} onClick={() => props.handleMarkAsDone(item)}/>
+            <IconButton style='warning' icon='undo' hide={!item.done} onClick={() => props.handleMarkAsPending(item)}/>
+            <IconButton style='danger' icon='trash-o' hide={!item.done} onClick={() => props.handleRemove(item._id)}/>
             </td>
           
         </tr>
@@ -24,6 +24,9 @@ export default props => {
         <tr>
           <th>
             Descrição
+          </th>
+          <th className="tableActions">
+            Ação
           </th>
         </tr>
       </thead>
