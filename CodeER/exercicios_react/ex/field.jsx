@@ -1,27 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { handleChange } from './fieldActions';
 
 class Field extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = { value: props.initialValue }
-        this.handleChange = this.handleChange.bind(this);
-    }
-
-    handleChange(e) {
-        this.setState({ value: e.target.value });
-    }
-
-    render() {
-        return (
-            <div>
-                <label>
-                    <input onChange={this.handleChange} value={this.state.value} />
-                    {this.state.value}
-                </label>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <label>
+          {this.props.value}
+        </label>
+        <br/>
+        <input onChange={this.props.handleChange} value={this.props.value} />
+      </div>
+    );
+  }
 }
 
-export default Field;
+function mapStateToProps(state) {
+  return {
+    value: state.field.value
+  };
+}
+
+function mapDispatchToProps(dispatch){
+    return bindActionCreators({ handleChange }, dispatch);
+}
+
+//Essa função chamando de Decorator, estmaos devolvendo um novo componente com mais funcionalidades.
+export default connect(mapStateToProps, mapDispatchToProps)(Field);
