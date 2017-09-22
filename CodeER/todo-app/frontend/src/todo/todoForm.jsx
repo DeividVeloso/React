@@ -19,16 +19,17 @@ export default props => {
           id="description"
           className="form-control"
           placeholder="Adicione uma tarefa"
-          value={props.description}
           onKeyUp={keyHandler}
+          value={props.description}
           onChange={props.handleChange}
         />
       </Grid>
       <Grid cols="12 3 2">
         <Button style="primary" icon="plus" onClick={props.handleAdd} />
         <Button style="info" icon="search" onClick={props.handleSearch} />
-        <Button style='default' icon='close' onClick={props.handleClear} />
+        <Button style="default" icon="close" onClick={props.handleClear} />
+
       </Grid>
     </div>
   );
-}
+};
