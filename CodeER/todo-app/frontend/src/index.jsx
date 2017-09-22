@@ -11,9 +11,11 @@ import { Provider } from 'react-redux';
 //Esqueleto para criar todo o esquema da minha Store
 import reducers from './main/reducers';
 
-//Criando a store
-const store = createStore(reducers);
+const devTools = window.__REDUX_DEVTOOLS_EXTENSION__ 
+                && window.__REDUX_DEVTOOLS_EXTENSION__()
 
+//Criando a store
+const store = createStore(reducers, devTools);
 //Conectando minha store com React
 ReactDOM.render(
     <Provider store={store}>
