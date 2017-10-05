@@ -1,18 +1,6 @@
 const INITIAL_STATE = {
-    description: 'ler livro',
-    list: [{
-        _id: 1,
-        description: 'Pagar fatura do cartão',
-        done: true
-    }, {
-        _id: 2,
-        description: 'Levar carro no Detran',
-        done: false
-    }, {
-        _id: 3,
-        description: 'estudar styled components',
-        done: false
-    }]
+    description: '',
+    list: []
 }
 
 export default (state = INITIAL_STATE, action) => {
@@ -20,7 +8,9 @@ export default (state = INITIAL_STATE, action) => {
         case 'DESCRIPTION_CHANGED':
             return { ...state, description: action.payload };
         case 'TODO_SEARCHED':
-            return {...state, list: action.payload.data};
+            return { ...state, list: action.payload.data };
+        case 'TODO_ADDED':
+            return { ...state, description: '' };
         default:
             return state;
     }
