@@ -10,10 +10,15 @@ export const changeDescription = event => ({
 //Esse método é sincrono não posso esperar
 //não vou ter como retornar o valor do axios por que eu preciso dar um then() para ele esperar e retornar o valor.
 export const search = () => {
-  const request = axios.get(`${URL}?sort=-createdAt`);
-  return {
-    type: "TODO_SEARCHED",
-    payload: request
+  return (dispatch, getState) => {
+    const description = getState().todo.description;
+    const search = description ? `&description__regex=/${description}/` : "";
+    const request = axios.get(`${URL}?sort=-createdAt${search}`).then(resp =>
+      dispatch({
+        type: "TODO_SEARCHED",
+        payload: resp.data
+      })
+    );
   };
 };
 
@@ -21,7 +26,7 @@ export const add = description => {
   return dispatch => {
     axios
       .post(URL, { description })
-      .then(resp => dispatch({ type: "TODO_ADDED", payload: resp }))
+      .then(resp => dispatch(clear()))
       .then(resp => dispatch(search()));
   };
 };
@@ -46,4 +51,14 @@ export const remove = id => {
   return dispatch => {
     axios.delete(`${URL}/${id}`).then(resp => dispatch(search()));
   };
+};
+
+export const clear = () => {
+  return [
+    {
+      type: "TODO_CLEAR",
+      payload: ""
+    },
+    search()
+  ];
 };
