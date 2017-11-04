@@ -1,8 +1,13 @@
 const BillingCycle = require("./billingCycle");
+const errorHandler = require("../common/errorHandler");
 
 //habilitando métodos REST
 BillingCycle.methods(["get", "post", "put", "delete"]);
 BillingCycle.updateOptions({ new: true, runValidators: true });
+
+//Aplicando o Middleware ErrorHandler
+BillingCycle.after("post", errorHandler);
+BillingCycle.after("put", errorHandler);
 
 BillingCycle.route("count", (req, res, next) => {
   BillingCycle.count((error, value) => {
@@ -46,7 +51,8 @@ BillingCycle.route("summary", (req, res, next) => {
     {
       //Não quero que apareça o Id, e retorne o credit e debt
       $project: { _id: 0, credit: 1, debt: 1 }
-    },(error, result) => {
+    },
+    (error, result) => {
       if (error) {
         res.status(500).json({ errors: [error] });
       } else {
@@ -54,7 +60,8 @@ BillingCycle.route("summary", (req, res, next) => {
         //Mas caso não retorne, eu respondo com o objeto crédito e débito igual a 0.
         res.json(result[0] || { credit: 0, debt: 0 });
       }
-    });
+    }
+  );
 });
 
 module.exports = BillingCycle;
