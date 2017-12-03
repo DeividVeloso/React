@@ -7,19 +7,23 @@ import { selectTab } from "../../store/actions/tab-action";
 class TabHeader extends Component {
   render() {
     const selected = this.props.tab.selected === this.props.target;
-    return (
-      <li className={selected ? "active" : ""}>
-        <a
-          href="javascript:;"
-          data-toggle="tab"
-          data-target={this.props.target}
-          onClick={() => this.props.selectTab(this.props.target)}
-        >
-          <i className={`fa fa-${this.props.icon}`} />
-          {this.props.label}
-        </a>
-      </li>
-    );
+    const visible = this.props.tab.visible[this.props.target];
+    if (visible) {
+      return (
+        <li className={selected ? "active" : ""}>
+          <a
+            href="javascript:;"
+            data-toggle="tab"
+            data-target={this.props.target}
+            onClick={() => this.props.selectTab(this.props.target)}
+          >
+            <i className={`fa fa-${this.props.icon}`} />
+            {this.props.label}
+          </a>
+        </li>
+      );
+    }
+    return null;
   }
 }
 const mapStateToProps = state => ({ tab: state.tab });
