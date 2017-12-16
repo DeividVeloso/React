@@ -6,10 +6,6 @@ import Messages from '../common/message/';
 import '../common/template/dependencies';
 import Routes from './routes';
 
-const a = 1;
-const b = 2;
-a = 4;
-
 export default props => (
   <div className="wrapper">
     <Header />

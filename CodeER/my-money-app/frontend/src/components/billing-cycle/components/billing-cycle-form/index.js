@@ -1,14 +1,13 @@
-import React, { Component } from "react";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
-import { init } from "../../../../store/actions/billing-cycle-actions";
-import { reduxForm, Field } from "redux-form";
-import InputForm from "../../../../common/input-form/";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { init } from '../../../../store/actions/billing-cycle-actions';
+import { reduxForm, Field } from 'redux-form';
+import InputForm from '../../../../common/input-form/';
 
 class BillingCycleForm extends Component {
   render() {
-    const { handleSubmit } = this.props;
-    console.log(handleSubmit);
+    const { handleSubmit, readOnly } = this.props;
     return (
       <form role="form" onSubmit={handleSubmit}>
         <div className="box-body">
@@ -18,6 +17,7 @@ class BillingCycleForm extends Component {
             label="Nome"
             cols="12 4"
             placeholder="Informe o Nome"
+            readOnly={readOnly}
           />
           <Field
             name="month"
@@ -26,6 +26,7 @@ class BillingCycleForm extends Component {
             cols="12 4"
             placeholder="Informe o Mês"
             type="number"
+            readOnly={readOnly}
           />
           <Field
             name="year"
@@ -34,17 +35,14 @@ class BillingCycleForm extends Component {
             cols="12 4"
             placeholder="Informe o Ano"
             type="number"
+            readOnly={readOnly}
           />
         </div>
         <div className="box-footer">
           <button type="submit" className="btn btn-primary">
             Submit
           </button>
-          <button
-            type="button"
-            className="btn btn-default"
-            onClick={this.props.init}
-          >
+          <button type="button" className="btn btn-default" onClick={this.props.init}>
             Cancelar
           </button>
         </div>
@@ -52,10 +50,10 @@ class BillingCycleForm extends Component {
     );
   }
 }
-
+/* eslint no-class-assign */
 BillingCycleForm = reduxForm({
-  form: "billingCycleForm",
-  destroyOnUnmount: false
+  form: 'billingCycleForm',
+  destroyOnUnmount: false,
 })(BillingCycleForm);
 
 const mapDispatchToProps = dispatch => bindActionCreators({ init }, dispatch);

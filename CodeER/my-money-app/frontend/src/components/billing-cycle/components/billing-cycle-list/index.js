@@ -1,8 +1,8 @@
-import React, { Component } from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import { getList } from "../../../../store/actions/billing-cycle-actions";
-import { showUpdate } from "../../../../store/actions/billing-cycle-actions";
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { getList } from '../../../../store/actions/billing-cycle-actions';
+import { showSelectedTabs } from '../../../../store/actions/billing-cycle-actions';
 
 class BillingCycleList extends Component {
   componentWillMount() {
@@ -20,9 +20,15 @@ class BillingCycleList extends Component {
         <td>
           <button
             className="btn btn-warning"
-            onClick={() => this.props.showUpdate(bc)}
+            onClick={() => this.props.showSelectedTabs(['tabUpdate'], 'tabUpdate', bc)}
           >
             <i className="fa fa-pencil" />
+          </button>
+          <button
+            className="btn btn-danger"
+            onClick={() => this.props.showSelectedTabs(['tabDelete'], 'tabDelete', bc)}
+          >
+            <i className="fa fa-trash" />
           </button>
         </td>
       </tr>
@@ -48,6 +54,5 @@ class BillingCycleList extends Component {
   }
 }
 const mapStateToProps = state => ({ billingCycle: state.billingCycle });
-const mapDispatchToProps = dispatch =>
-  bindActionCreators({ getList, showUpdate }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ getList, showSelectedTabs }, dispatch);
 export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleList);
