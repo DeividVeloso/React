@@ -4,12 +4,16 @@ import Grid from '../../../../common/layout/grid';
 import Input from '../../../../common/input';
 
 class CreditList extends Component {
+  add(index) {
+    console.log(index);
+  }
   renderRows() {
-    return (
-      <tr>
+    const list = this.props.list || [];
+    return list.map((item, index) => (
+      <tr key={index}>
         <td>
           <Field
-            name="credits[0].name"
+            name={`credits[${index}].name`}
             component={Input}
             placeholder="Informe o nome"
             readOnly={this.props.readOnly}
@@ -17,14 +21,19 @@ class CreditList extends Component {
         </td>
         <td>
           <Field
-            name="credits[0].value"
+            name={`credits[${index}].value`}
             component={Input}
             placeholder="Informe o valor"
             readOnly={this.props.readOnly}
           />
         </td>
+        <td>
+          <button type="button" className="btn btn-success" onClick={() => this.add(index + 1)}>
+            <i className="fa fa-plus" />
+          </button>
+        </td>
       </tr>
-    );
+    ));
   }
 
   render() {
