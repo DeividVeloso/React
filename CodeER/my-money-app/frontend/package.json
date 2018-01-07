@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "node_modules/.bin/eslint lint ./src/*.js",
     "precommit": "npm run lint",
-    "dev": "webpack-dev-server --progress --colors --inline --hot",
+    "dev": "webpack-dev-server --progress --colors --inline --hot --open",
     "production": "webpack --progress -p"
   },
   "keywords": [],
