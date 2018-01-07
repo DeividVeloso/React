@@ -1,13 +1,28 @@
 const express = require("express");
+const auth = require("./auth");
 
 module.exports = function(server) {
+  /*
+* Rotas JWT
+*/
   //URL base para todas as rotas
-  const router = express.Router();
-  server.use("/api", router);
+  const protectedRouter = express.Router();
+  server.use("/api", protectedRouter);
 
-  //Rotas de Ciclo de Pagamento
-  //Pegando meu serviço de Pagamento, meus objetos e adicionando o nome para fica rno endpoint 
-  //loaclhost:3003/api/billingCycles
-  const BillingCycle = require('../api/billingCycle/billingCycleService');
-  BillingCycle.register(router, '/billingCycles')
+  //Filtro de autenticação.
+  protectedRouter.use(auth);
+
+  const BillingCycle = require("../api/billingCycle/billingCycleService");
+  BillingCycle.register(protectedRouter, "/billingCycles");
+
+  /*
+* Rotas SEM JWT
+*/
+  const openApi = express.Router();
+  server.use("/oapi", openApi);
+
+  const AuthService = require("../api/user/authService");
+  openApi.post("/login", AuthService.login);
+  openApi.post("/signup", AuthService.signup);
+  openApi.post("/validateToken", AuthService.validateToken);
 };
