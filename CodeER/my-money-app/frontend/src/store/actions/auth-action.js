@@ -15,7 +15,8 @@ const submit = (values, url) => {
     axios
       .post(url, values)
       .then(resp => {
-        dispatch([{ type: "USER_FETCHED", payload: resp.data }]);
+        console.log("LOGOU", resp.data)
+        dispatch({ type: "USER_FETCHED", payload: resp.data });
       })
       .catch(e => {
         e.response.errors.forEach(error => toastr.error("Error", error));
